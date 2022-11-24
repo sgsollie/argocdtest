@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
 	"time"
 
 	batchv1 "k8s.io/api/batch/v1"
@@ -44,9 +45,17 @@ func init() {
 
 func createJob() {
 	fmt.Println("creating job", jobName)
+
+	// This is so ArgoCD can track jobs that are spawned from inside this go program:
+	// https://argo-cd.readthedocs.io/en/stable/user-guide/resource_tracking/
+	LabelsMap := map[string]string{
+		"app.kubernetes.io/instance": os.Getenv("APPNAME"),
+	}
+
 	jobsClient := clientset.BatchV1().Jobs(hardCodedNamespace)
 	job := &batchv1.Job{ObjectMeta: metav1.ObjectMeta{
-		Name: jobName,
+		Name:        jobName,
+		Annotations: LabelsMap,
 	},
 		Spec: batchv1.JobSpec{
 			Template: apiv1.PodTemplateSpec{

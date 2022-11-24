@@ -35,6 +35,11 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: APPNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: app.kubernetes.io/instance
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
