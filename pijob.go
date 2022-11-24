@@ -54,8 +54,8 @@ func createJob() {
 
 	jobsClient := clientset.BatchV1().Jobs(hardCodedNamespace)
 	job := &batchv1.Job{ObjectMeta: metav1.ObjectMeta{
-		Name:        jobName,
-		Annotations: LabelsMap,
+		Name:   jobName,
+		Labels: LabelsMap,
 	},
 		Spec: batchv1.JobSpec{
 			Template: apiv1.PodTemplateSpec{
