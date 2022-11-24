@@ -39,7 +39,7 @@ spec:
             - name: APPNAME
               valueFrom:
                 fieldRef:
-                  fieldPath: app.kubernetes.io/instance
+                  fieldPath: metadata.labels['app.kubernetes.io/instance']
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
