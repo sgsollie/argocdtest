@@ -4,8 +4,6 @@
 
 replicaCount: 1
 
-argocdTrackingId: pijobservice:apps/Deployment:default/pijobrbac
-
 image:
   repository: pijobimage
   pullPolicy: IfNotPresent
