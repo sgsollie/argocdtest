@@ -3,6 +3,8 @@ kind: Role
 metadata:
   name: job-creator-role
   namespace: {{ .Release.Namespace }}
+  annotations:
+    argocd.argoproj.io/tracking-id: {{ .Values.argocdTrackingId }}
 rules:
   - apiGroups: [""]
     resources: ["pods", "pods/log"]
@@ -22,6 +24,8 @@ kind: RoleBinding
 metadata:
   name: job-creator-rolebinding
   namespace: {{ .Release.Namespace }}
+  annotations:
+    argocd.argoproj.io/tracking-id: {{ .Values.argocdTrackingId }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -35,3 +39,5 @@ kind: ServiceAccount
 metadata:
   name: job-creator
   namespace: {{ .Release.Namespace }}
+  annotations:
+    argocd.argoproj.io/tracking-id: {{ .Values.argocdTrackingId }}
